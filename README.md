@@ -1,5 +1,8 @@
 > [!CAUTION]  
-> There are no plans to extend this plugin's lifetime beyond Filament v3. Please do not plan to use this in production if you are thinking of upgrading to Filament v4 when it is released in the summer of 2025.
+> **This repository is a fork of [joshembling/image-optimizer](https://github.com/joshembling/image-optimizer)**.  
+> Please note that this fork is not actively maintained. For the latest updates, features, and official support, **we strongly recommend using the original repository instead**:
+> [https://github.com/joshembling/image-optimizer](https://github.com/joshembling/image-optimizer)  
+> Thank you for your understanding!
 
 # Optimize your Filament images before they reach your database.
 
