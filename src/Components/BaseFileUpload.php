@@ -56,6 +56,8 @@ class BaseFileUpload extends Field
 
     protected string | Closure | null $optimize = null;
 
+    protected string | Closure | null $quality = null;
+
     protected int | Closure | null $resize = null;
 
     protected int | Closure | null $maxImageWidth = null;
@@ -220,10 +222,8 @@ class BaseFileUpload extends Field
             ) {
                 $image = InterventionImage::make($file);
 
-                if ($optimize) {
-                    $quality = $optimize === 'jpeg' || $optimize === 'jpg'
-                        ? 70
-                        : 100;
+                if ($optimize && in_array($optimize, ['jpeg', 'jpg']) && is_null($this->quality)) {
+                    $this->quality = 70;
                 }
 
                 if ($maxImageWidth && $image->width() > $maxImageWidth) {
@@ -253,7 +253,7 @@ class BaseFileUpload extends Field
                 }
 
                 if ($optimize) {
-                    $compressedImage = $image->encode($optimize, $quality);
+                    $compressedImage = $image->encode($optimize, $this->quality);
                 } else {
                     $compressedImage = $image->encode();
                 }
@@ -504,9 +504,13 @@ class BaseFileUpload extends Field
         return $this;
     }
 
-    public function optimize(string | Closure | null $optimize): static
+    public function optimize(string | Closure | null $optimize, int | null $qualityPercentage): static
     {
         $this->optimize = $optimize;
+
+        if (!is_null($qualityPercentage)) {
+            $this->quality = $qualityPercentage;
+        }
 
         return $this;
     }
