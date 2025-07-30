@@ -221,8 +221,9 @@ class BaseFileUpload extends Field
                 $image = InterventionImage::make($file);
 
                 if ($optimize) {
-                    $quality = $optimize === 'jpeg' ||
-                        $optimize === 'jpg' ? 70 : null;
+                    $quality = $optimize === 'jpeg' || $optimize === 'jpg'
+                        ? 70
+                        : 100;
                 }
 
                 if ($maxImageWidth && $image->width() > $maxImageWidth) {
